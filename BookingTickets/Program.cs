@@ -1,5 +1,12 @@
 using BookingTickets.Converteds;
+using BookingTickets.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionStrings = builder.Configuration["ConnectionStrings:DefaultConnection"];
+
+builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionStrings));
 
 builder.Services.AddCors();
 
