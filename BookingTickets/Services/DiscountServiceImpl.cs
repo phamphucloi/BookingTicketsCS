@@ -17,7 +17,7 @@ public class DiscountServiceImpl : IDiscountService
     {
         try
         {
-            _databaseContext.Accounts.Add(dis);
+            _databaseContext.Discounts.Add(dis);
             return _databaseContext.SaveChanges() > 0;
         }
         catch
@@ -30,7 +30,7 @@ public class DiscountServiceImpl : IDiscountService
     {
         try
         {
-            _databaseContext.Accounts.Remove(_databaseContext.Accounts.FirstOrDefault(acc => acc.Id == id)!);
+            _databaseContext.Discounts.Remove(_databaseContext.Discounts.FirstOrDefault(acc => acc.Id == id)!);
             return _databaseContext.SaveChanges() > 0;
         }
         catch
@@ -43,14 +43,10 @@ public class DiscountServiceImpl : IDiscountService
     {
         try
         {
-            return _databaseContext.Accounts.AsNoTracking().Where(acc => acc.Id == id)!.Select(acc => new
+            return _databaseContext.Discounts.AsNoTracking().Where(acc => acc.Id == id)!.Select(acc => new
             {
                 Id = acc.Id,
-                FullName = acc.FullName,
-                Address = acc.Address,
-                Email = acc.Email,
-                Phone = acc.Phone,
-                Level = acc.Level,
+
                 Status = acc.Status,
                 CreateAt = acc.CreateAt,
                 UpdateAt = acc.UpdateAt
@@ -66,7 +62,7 @@ public class DiscountServiceImpl : IDiscountService
     {
         try
         {
-            _databaseContext.Accounts.Entry(dis).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _databaseContext.Discounts.Entry(dis).State = EntityState.Modified;
             return _databaseContext.SaveChanges() > 0;
         }
         catch

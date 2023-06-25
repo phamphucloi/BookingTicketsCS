@@ -6,6 +6,6 @@ public interface IShippingService
 {
     public bool Add(Shipping shipping);
     public dynamic GetById(int id);
-    public bool Update(Shipping discount);
+    public bool Update(Shipping shipping);
     public bool Delete(int id);
 }
