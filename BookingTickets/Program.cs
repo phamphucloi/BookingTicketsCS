@@ -1,10 +1,14 @@
 using BookingTickets.Converteds;
+using BookingTickets.Interfaces;
 using BookingTickets.Models;
+using BookingTickets.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionStrings = builder.Configuration["ConnectionStrings:DefaultConnection"];
+
+builder.Services.AddScoped<IInvoiceCarService, InvoiceCarImpl>();
 
 builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionStrings));
 
