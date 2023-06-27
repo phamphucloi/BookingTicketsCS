@@ -69,4 +69,15 @@ public class CategoryServiceImpl : ICategoryService
             return false;
         }
     }
+    public dynamic GetAllCategory()
+    {
+        return _databaseContext.CategoryCars.Select(cate => new
+        {
+            Id = cate.Id,
+            Name = cate.Name,
+            CreateAt = cate.CreateAt,
+            UpdateAt = cate.UpdateAt
+        }).ToList();
+    }
+
 }

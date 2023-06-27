@@ -8,4 +8,5 @@ public interface IShippingService
     public dynamic GetById(int id);
     public bool Update(Shipping shipping);
     public bool Delete(int id);
+    public dynamic GetAllShipping();
 }

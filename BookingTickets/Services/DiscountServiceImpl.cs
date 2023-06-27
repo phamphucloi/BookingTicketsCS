@@ -46,8 +46,10 @@ public class DiscountServiceImpl : IDiscountService
             return _databaseContext.Discounts.AsNoTracking().Where(acc => acc.Id == id)!.Select(acc => new
             {
                 Id = acc.Id,
-
+                Content = acc.Content,
+                Price = acc.Price,
                 Status = acc.Status,
+                DateEnd = acc.DateEnd,
                 CreateAt = acc.CreateAt,
                 UpdateAt = acc.UpdateAt
             }).FirstOrDefault()!;
@@ -69,5 +71,18 @@ public class DiscountServiceImpl : IDiscountService
         {
             return false;
         }
+    }
+    public dynamic GetAllDiscount()
+    {
+        return _databaseContext.Discounts.Select(acc => new
+        {
+            Id = acc.Id,
+            Content = acc.Content,
+            Price = acc.Price,
+            Status = acc.Status,
+            DateEnd = acc.DateEnd,
+            CreateAt = acc.CreateAt,
+            UpdateAt = acc.UpdateAt
+        }).ToList();
     }
 }

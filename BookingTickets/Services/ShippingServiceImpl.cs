@@ -46,7 +46,9 @@ public class ShippingServiceImpl : IShippingService
             return _databaseContext.Shippings.AsNoTracking().Where(acc => acc.Id == id)!.Select(acc => new
             {
                 Id = acc.Id,
-
+                Weight = acc.Weight,
+                Pakage = acc.Pakage,
+                Price = acc.Price,
                 CreateAt = acc.CreateAt,
                 UpdateAt = acc.UpdateAt
             }).FirstOrDefault()!;
@@ -55,6 +57,19 @@ public class ShippingServiceImpl : IShippingService
         {
             return null!;
         }
+    }
+
+    public dynamic GetAllShipping()
+    {
+        return _databaseContext.Shippings.Select(acc => new
+        {
+            Id = acc.Id,
+            Weight = acc.Weight,
+            Pakage = acc.Pakage,
+            Price = acc.Price,
+            CreateAt = acc.CreateAt,
+            UpdateAt = acc.UpdateAt
+        }).ToList();
     }
 
     public bool Update(Shipping shipping)
