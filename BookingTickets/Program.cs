@@ -9,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionStrings = builder.Configuration["ConnectionStrings:DefaultConnection"];
 
+builder.Services.AddScoped<IInvoiceCarService, InvoiceCarImpl>();
+
+builder.Services.AddScoped<IChairCarService, ChairCarServiceImpl>();
+
 builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionStrings));
 
 builder.Services.AddScoped<ICarService, CarServiceImpl>();
