@@ -8,5 +8,6 @@ public interface IInvoiceCarService
     public bool Update(InvoiceCar invoiceCar);
     public bool Delete(int id);
     public dynamic GetById(int id);
+    public dynamic GetAll();
 
 }

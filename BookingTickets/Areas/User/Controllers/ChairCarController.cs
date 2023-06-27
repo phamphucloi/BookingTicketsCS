@@ -4,15 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingTickets.Areas.User.Controllers;
 [Area("user")]
-[Route("user/api/invoiceCar")]
-public class InvoiceCarController : Controller
+[Route("user/api/chairCar")]
+public class ChairCarController : Controller
 {
+    private readonly IChairCarService _IChairCarService;
 
-    private readonly IInvoiceCarService _invoiceCarService;
-
-    public InvoiceCarController(IInvoiceCarService invoiceCarService)
+    public ChairCarController(IChairCarService iChairCarService)
     {
-        _invoiceCarService = invoiceCarService;
+        _IChairCarService = iChairCarService;
     }
 
     [HttpGet("index")]
@@ -21,7 +20,7 @@ public class InvoiceCarController : Controller
     {
         try
         {
-            return Ok(_invoiceCarService.GetAll());
+            return Ok(_IChairCarService.GetAll());
         }
         catch
         {
@@ -35,7 +34,7 @@ public class InvoiceCarController : Controller
     {
         try
         {
-            return Ok(_invoiceCarService.GetById(id));
+            return Ok(_IChairCarService.GetById(id));
         }
         catch
         {
@@ -44,12 +43,12 @@ public class InvoiceCarController : Controller
     }
 
     [HttpPost("create")]
-    [Consumes("application/json")]
-    public IActionResult Create([FromBody] InvoiceCar invoiceCar)
+    [Produces("application/json")]
+    public IActionResult Create([FromBody] ChairCar chairCar)
     {
         try
         {
-            return Ok(_invoiceCarService.Add(invoiceCar));
+            return Ok(_IChairCarService.Create(chairCar));
         }
         catch
         {
@@ -58,12 +57,12 @@ public class InvoiceCarController : Controller
     }
 
     [HttpPut("update")]
-    [Consumes("application/json")]
-    public IActionResult Update([FromBody] InvoiceCar invoiceCar)
+    [Produces("application/json")]
+    public IActionResult Update([FromBody] ChairCar chairCar)
     {
         try
         {
-            return Ok(_invoiceCarService.Update(invoiceCar));
+            return Ok(_IChairCarService.Update(chairCar));
         }
         catch
         {
@@ -72,17 +71,16 @@ public class InvoiceCarController : Controller
     }
 
     [HttpDelete("delete/{id}")]
-    [Consumes("application/json")]
+    [Produces("application/json")]
     public IActionResult Delete(int id)
     {
         try
         {
-            return Ok(_invoiceCarService.Delete(id));
+            return Ok(_IChairCarService.Delete(id));
         }
         catch
         {
             return BadRequest();
         }
     }
-
 }

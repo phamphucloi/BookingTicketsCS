@@ -10,6 +10,8 @@ var connectionStrings = builder.Configuration["ConnectionStrings:DefaultConnecti
 
 builder.Services.AddScoped<IInvoiceCarService, InvoiceCarImpl>();
 
+builder.Services.AddScoped<IChairCarService, ChairCarServiceImpl>();
+
 builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionStrings));
 
 builder.Services.AddCors();

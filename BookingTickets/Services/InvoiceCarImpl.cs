@@ -39,11 +39,32 @@ public class InvoiceCarImpl : IInvoiceCarService
         }
     }
 
+    public dynamic GetAll()
+    {
+        try
+        {
+            return _databaseContext.InvoiceCars.Select(a => new
+            {
+                Id = a.Id,
+                Date = a.Date,
+                Note = a.Note,
+                Total = a.Total,
+                IdAccount = a.IdAccount,
+                CreateAt = a.CreateAt,
+                UpdateAt = a.UpdateAt,
+            }).ToList()!;
+        }
+        catch
+        {
+            return null!;
+        }
+    }
+
     public dynamic GetById(int id)
     {
         try
         {
-            return _databaseContext.InvoiceCars.Where(a=>a.Id == id).Select(a => new
+            return _databaseContext.InvoiceCars.AsNoTracking().Where(a=>a.Id == id).Select(a => new
             {
                 Id = a.Id,
                 Date = a.Date,
