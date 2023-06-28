@@ -16,6 +16,7 @@ public class ChairCarController : Controller
 
     [HttpGet("index")]
     [Produces("application/json")]
+    [Consumes("application/json")]
     public IActionResult Index()
     {
         try
