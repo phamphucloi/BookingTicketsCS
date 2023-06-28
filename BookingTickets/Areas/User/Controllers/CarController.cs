@@ -48,9 +48,9 @@ public class CarController : Controller
         }
     }
 
-    [HttpGet("findAll")]
+    [HttpGet("getAll")]
     [Produces("application/json")]
-    public IActionResult FindAll()
+    public IActionResult GetAll()
     {
         try
         {

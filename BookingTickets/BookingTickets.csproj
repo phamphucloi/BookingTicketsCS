@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\User\**" />
-    <Content Remove="Areas\User\**" />
-    <EmbeddedResource Remove="Areas\User\**" />
-    <None Remove="Areas\User\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
 
