@@ -9,7 +9,7 @@ public partial class WorkSchedule
 
     public DateTime WorkDay { get; set; }
 
-    public int IdTime { get; set; }
+    public int IdTimeLine { get; set; }
 
     public int IdFreeway { get; set; }
 
@@ -29,5 +29,5 @@ public partial class WorkSchedule
 
     public virtual Freeway IdFreewayNavigation { get; set; } = null!;
 
-    public virtual Time IdTimeNavigation { get; set; } = null!;
+    public virtual TimeLine IdTimeLineNavigation { get; set; } = null!;
 }
