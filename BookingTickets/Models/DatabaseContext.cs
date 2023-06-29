@@ -37,21 +37,25 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<InvoiceShipping> InvoiceShippings { get; set; }
 
+    public virtual DbSet<PlaceFrom> PlaceFroms { get; set; }
+
+    public virtual DbSet<PlaceTo> PlaceTos { get; set; }
+
     public virtual DbSet<Shipping> Shippings { get; set; }
 
-    public virtual DbSet<Time> Times { get; set; }
+    public virtual DbSet<TimeLine> TimeLines { get; set; }
 
     public virtual DbSet<WorkSchedule> WorkSchedules { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=DESKTOP-6ND9H3D\\PPL;Database=BOOKINGTICKET;user id=sa;password=loi123;trusted_connection=true;encrypt=false");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-6ND9H3D\\PPL;Database=BOOKINGTICKET;user id=sa;password=loi123;trusted_connection=true;encrypt=false");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Account__3214EC07157792CB");
+            entity.HasKey(e => e.Id).HasName("PK__Account__3214EC0784535EA3");
 
             entity.ToTable("Account");
 
@@ -61,6 +65,7 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.CreateAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("date");
+            entity.Property(e => e.DoB).HasColumnType("datetime");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -80,7 +85,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Car>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Car__3214EC07FDFD8DE2");
+            entity.HasKey(e => e.Id).HasName("PK__Car__3214EC077BCF828D");
 
             entity.ToTable("Car");
 
@@ -105,7 +110,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<CategoryCar>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC07D2E491C6");
+            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC07584001A2");
 
             entity.ToTable("CategoryCar");
 
@@ -122,7 +127,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Chair>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Chair__3214EC072E33FB06");
+            entity.HasKey(e => e.Id).HasName("PK__Chair__3214EC07A6841480");
 
             entity.ToTable("Chair");
 
@@ -139,7 +144,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<ChairCar>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ChairCar__3214EC0771A4BA16");
+            entity.HasKey(e => e.Id).HasName("PK__ChairCar__3214EC07F4AD84BB");
 
             entity.ToTable("ChairCar");
 
@@ -163,7 +168,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Discount>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Discount__3214EC07B5638298");
+            entity.HasKey(e => e.Id).HasName("PK__Discount__3214EC0770F9E291");
 
             entity.ToTable("Discount");
 
@@ -181,7 +186,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<DiscountDetail>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Discount__3214EC0743C24C56");
+            entity.HasKey(e => e.Id).HasName("PK__Discount__3214EC070DF29A1E");
 
             entity.ToTable("DiscountDetail");
 
@@ -205,7 +210,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Freeway>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Freeway__3214EC074483C1FF");
+            entity.HasKey(e => e.Id).HasName("PK__Freeway__3214EC07F3C58910");
 
             entity.ToTable("Freeway");
 
@@ -218,11 +223,21 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.UpdateAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("date");
+
+            entity.HasOne(d => d.IdFromNavigation).WithMany(p => p.Freeways)
+                .HasForeignKey(d => d.IdFrom)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Freeway_PlaceFrom");
+
+            entity.HasOne(d => d.IdToNavigation).WithMany(p => p.Freeways)
+                .HasForeignKey(d => d.IdTo)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Freeway_PlaceTo");
         });
 
         modelBuilder.Entity<InvoiceCar>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__InvoiceC__3214EC0780937781");
+            entity.HasKey(e => e.Id).HasName("PK__InvoiceC__3214EC07A41BFD4E");
 
             entity.ToTable("InvoiceCar");
 
@@ -245,7 +260,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<InvoiceDetailCar>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__InvoiceD__3214EC073BFFA031");
+            entity.HasKey(e => e.Id).HasName("PK__InvoiceD__3214EC074257CED9");
 
             entity.ToTable("InvoiceDetailCar");
 
@@ -269,7 +284,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<InvoiceShipping>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__InvoiceS__3214EC071E9C8A59");
+            entity.HasKey(e => e.Id).HasName("PK__InvoiceS__3214EC07CCC271D1");
 
             entity.ToTable("InvoiceShipping");
 
@@ -309,9 +324,31 @@ public partial class DatabaseContext : DbContext
                 .HasConstraintName("FK_InvoiceShipping_Shipping");
         });
 
+        modelBuilder.Entity<PlaceFrom>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__PlaceFro__3214EC079E1BF729");
+
+            entity.ToTable("PlaceFrom");
+
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<PlaceTo>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__PlaceTo__3214EC074ACDF9A3");
+
+            entity.ToTable("PlaceTo");
+
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<Shipping>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Shipping__3214EC07625694EA");
+            entity.HasKey(e => e.Id).HasName("PK__Shipping__3214EC078F104FBA");
 
             entity.ToTable("Shipping");
 
@@ -328,11 +365,11 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Weight).HasDefaultValueSql("((0))");
         });
 
-        modelBuilder.Entity<Time>(entity =>
+        modelBuilder.Entity<TimeLine>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Time__3214EC076A0BBC93");
+            entity.HasKey(e => e.Id).HasName("PK__TimeLine__3214EC07E9656A5A");
 
-            entity.ToTable("Time");
+            entity.ToTable("TimeLine");
 
             entity.Property(e => e.CreateAt)
                 .HasDefaultValueSql("(getdate())")
@@ -347,7 +384,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<WorkSchedule>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__WorkSche__3214EC07BBD93B70");
+            entity.HasKey(e => e.Id).HasName("PK__WorkSche__3214EC07A8362EFF");
 
             entity.ToTable("WorkSchedule");
 
@@ -375,10 +412,10 @@ public partial class DatabaseContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_WorkSchedule_Freeway");
 
-            entity.HasOne(d => d.IdTimeNavigation).WithMany(p => p.WorkSchedules)
-                .HasForeignKey(d => d.IdTime)
+            entity.HasOne(d => d.IdTimeLineNavigation).WithMany(p => p.WorkSchedules)
+                .HasForeignKey(d => d.IdTimeLine)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_WorkSchedule_Time");
+                .HasConstraintName("FK_WorkSchedule_TimeLine");
         });
 
         OnModelCreatingPartial(modelBuilder);

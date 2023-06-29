@@ -8,4 +8,5 @@ public interface ICategoryService
     public dynamic GetById(int id);
     public bool Update(CategoryCar category); 
     public bool Delete(int id);
+    public dynamic GetAllCategory();
 }

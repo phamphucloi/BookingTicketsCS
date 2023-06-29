@@ -8,6 +8,5 @@ public interface ICarService
     public bool Update(Car bus);
     public bool Delete(int id);
     public dynamic GetById(int id);
-
-
+    public dynamic GetAllCar();
 }

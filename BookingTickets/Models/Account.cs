@@ -9,6 +9,8 @@ public partial class Account
 
     public string FullName { get; set; } = null!;
 
+    public DateTime DoB { get; set; }
+
     public string Address { get; set; } = null!;
 
     public string? Email { get; set; }

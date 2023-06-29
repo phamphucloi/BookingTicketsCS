@@ -71,4 +71,17 @@ public class CarServiceImpl : ICarService
             return false;
         }
     }
+
+    public dynamic GetAllCar()
+    {
+        return _databaseContext.Cars.Select(car => new
+        {
+            Id = car.Id,
+            LicensePlates = car.LicensePlates,
+            RegistrationDate = car.RegistrationDate,
+            IdCategory = car.IdCategory,
+            CreateAt = car.CreateAt,
+            UpdateAt = car.UpdateAt
+        }).ToList();
+    }
 }

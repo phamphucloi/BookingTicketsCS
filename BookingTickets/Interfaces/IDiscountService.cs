@@ -8,4 +8,5 @@ public interface IDiscountService
     public dynamic GetById(int id);
     public bool Update(Discount dis);
     public bool Delete(int id);
+    public dynamic GetAllDiscount();
 }
