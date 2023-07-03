@@ -12,6 +12,7 @@ public partial class InvoiceCar
     public string Note { get; set; } = null!;
 
     public int Total { get; set; }
+    public string? Status { get; set; }
 
     public int IdAccount { get; set; }
 

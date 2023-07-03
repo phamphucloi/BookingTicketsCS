@@ -25,6 +25,8 @@ builder.Services.AddScoped<IDiscountService, DiscountServiceImpl>();
 
 builder.Services.AddScoped<IinvoiceShippingService, InvoiceShippingImpl>();
 
+builder.Services.AddScoped<IWorkSchedulesService, WorkSchedulesServiceImpl>();
+
 builder.Services.AddCors();
 
 builder.Services.AddControllers().AddJsonOptions(option =>

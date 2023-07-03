@@ -26,6 +26,29 @@ public class InvoiceCarImpl : IInvoiceCarService
         }
     }
 
+    public dynamic Complete(int idAccount)
+    {
+        try
+        {
+            return _databaseContext.InvoiceCars.Where(i => i.IdAccount == idAccount && i.Status == "Completed").Select(i => new
+            {
+                Id = i.Id,
+                Date = i.Date,
+                Note = i.Note,
+                Total = i.Total,
+                IdAccount = i.IdAccount,
+                Status = i.Status,
+                CreateAt = i.CreateAt,
+                UpdateAt = i.UpdateAt,
+                FullName = i.IdAccountNavigation.FullName
+            }).OrderByDescending(i=>i.Id).ToList()!;
+        }
+        catch
+        {
+            return null!;
+        }
+    }
+
     public bool Delete(int id)
     {
         try
@@ -70,10 +93,62 @@ public class InvoiceCarImpl : IInvoiceCarService
                 Date = a.Date,
                 Note = a.Note,
                 Total = a.Total,
+                Status = a.Status,
                 IdAccount = a.IdAccount,
                 CreateAt = a.CreateAt,
                 UpdateAt = a.UpdateAt,
             }).FirstOrDefault()!;
+        }
+        catch
+        {
+            return null!;
+        }
+    }
+
+    public dynamic GetByIdAccount(int idAccount)
+    {
+        try
+        {
+            return _databaseContext.InvoiceCars.Where(i => i.IdAccount == idAccount).Select(i => new
+            {
+                Id = i.Id,
+                Date = i.Date,
+                Note = i.Note,
+                Total = i.Total,
+                IdAccount = i.IdAccount,
+                Status = i.Status,
+                CreateAt = i.CreateAt,
+                UpdateAt = i.UpdateAt,
+                FullName = i.IdAccountNavigation.FullName
+            }).ToList()!;
+        }
+        catch
+        {
+            return null!;
+        }
+    }
+
+    public dynamic InProgess(int idAccount)
+    {
+        try
+        {
+            return _databaseContext.InvoiceCars.Where(i => i.IdAccount == idAccount && i.Status == "InProgess").Select(i => new
+            {
+                Id = i.Id,
+                Date = i.Date,
+                Note = i.Note,
+                Total = i.Total,
+                IdAccount = i.IdAccount,
+                Status = i.Status,
+                CreateAt = i.CreateAt,
+                UpdateAt = i.UpdateAt,
+                FullName = i.IdAccountNavigation.FullName,
+                WorkDay = _databaseContext.WorkSchedules.Where(i => i.IdAccount == idAccount && i.IdCar == 1).Select(i => new
+                {
+                    Id = i.Id,
+                    Line = i.IdTimeLineNavigation.Line
+                }).FirstOrDefault()!
+            }).ToList()!;
         }
         catch
         {

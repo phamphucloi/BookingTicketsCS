@@ -13,11 +13,11 @@ public class TimeServiceImpl : ITimeService
         _databaseContext = databaseContext;
     }
 
-    public bool Add(Time time)
+    public bool Add(TimeLine time)
     {
         try
         {
-            _databaseContext.Times.Add(time);
+            _databaseContext.TimeLines.Add(time);
             return _databaseContext.SaveChanges() > 0;
         }
         catch
@@ -30,7 +30,7 @@ public class TimeServiceImpl : ITimeService
     {
         try
         {
-            _databaseContext.Times.Remove(_databaseContext.Times.FirstOrDefault(acc => acc.Id == id)!);
+            _databaseContext.TimeLines.Remove(_databaseContext.TimeLines.FirstOrDefault(acc => acc.Id == id)!);
             return _databaseContext.SaveChanges() > 0;
         }
         catch
@@ -43,7 +43,7 @@ public class TimeServiceImpl : ITimeService
     {
         try
         {
-            return _databaseContext.Times.AsNoTracking().Where(acc => acc.Id == id)!.Select(acc => new
+            return _databaseContext.TimeLines.AsNoTracking().Where(acc => acc.Id == id)!.Select(acc => new
             {
                 Id = acc.Id,
 
@@ -57,11 +57,11 @@ public class TimeServiceImpl : ITimeService
         }
     }
 
-    public bool Update(Time time)
+    public bool Update(TimeLine time)
     {
         try
         {
-            _databaseContext.Times.Entry(time).State = EntityState.Modified;
+            _databaseContext.TimeLines.Entry(time).State = EntityState.Modified;
             return _databaseContext.SaveChanges() > 0;
         }
         catch

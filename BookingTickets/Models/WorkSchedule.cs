@@ -22,6 +22,7 @@ public partial class WorkSchedule
     public DateTime? CreateAt { get; set; }
 
     public DateTime? UpdateAt { get; set; }
+    public String? Status { get; set; }
 
     public virtual Account IdAccountNavigation { get; set; } = null!;
 

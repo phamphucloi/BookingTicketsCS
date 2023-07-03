@@ -43,6 +43,66 @@ public class InvoiceCarController : Controller
         }
     }
 
+    [HttpGet("getByIdAccount/{idAccount}")]
+    [Produces("application/json")]
+    public IActionResult GetByIdAccount(int idAccount)
+    {
+        try
+        {
+            if (_invoiceCarService.GetByIdAccount(idAccount).Count == 0)
+            {
+                return Ok();
+            }
+
+            return Ok(_invoiceCarService.GetByIdAccount(idAccount));
+
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpGet("inprogess/{idAccount}")]
+    [Produces("application/json")]
+    public IActionResult InProgess(int idAccount)
+    {
+        try
+        {
+            //if (_invoiceCarService.InProgess(idAccount).Count == 0)
+            //{
+            //    return Ok();
+            //}
+
+            return Ok(_invoiceCarService.InProgess(idAccount));
+
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpGet("completed/{idAccount}")]
+    [Produces("application/json")]
+    public IActionResult Completed(int idAccount)
+    {
+        try
+        {
+            if (_invoiceCarService.Complete(idAccount).Count == 0)
+            {
+                return Ok();
+            }
+
+            return Ok(_invoiceCarService.Complete(idAccount));
+
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
     [HttpPost("create")]
     [Consumes("application/json")]
     public IActionResult Create([FromBody] InvoiceCar invoiceCar)
