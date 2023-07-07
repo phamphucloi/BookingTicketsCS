@@ -35,6 +35,36 @@ public class WorkScheduleController : Controller
         }
     }
 
+    [HttpGet("getByIdAccount/{idAccount}")]
+    [Produces("application/json")]
+    public IActionResult GetByIdAccount(int idAccount)
+    {
+        try
+        {
+
+            return Ok(_IWorkSchedulesService.GetByIdAccount(idAccount));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpGet("getByStatusCompleted/{idAccount}/{status}")]
+    [Produces("application/json")]
+    public IActionResult GetByStatusCompleted(int idAccount, string status)
+    {
+        try
+        {
+
+            return Ok(_IWorkSchedulesService.GetByStatusCompleted(idAccount, status));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
     [HttpGet("getById/{idAccount}")]
     [Produces("application/json")]
     public IActionResult GetById(int idAccount)
@@ -49,13 +79,28 @@ public class WorkScheduleController : Controller
         }
     }
 
-    [HttpPost("updateStatus")]
-    [Produces("application/json")]
+    [HttpPost("update")]
+    [Consumes("application/json")]
     public IActionResult UpdateSchedules([FromBody] WorkSchedule ws)
     {
         try
         {
             return Ok(_IWorkSchedulesService.Update(ws));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+
+    [HttpPost("addWorkSchedules")]
+    [Consumes("application/json")]
+    public IActionResult AddWorkSchedules([FromBody] WorkSchedule ws)
+    {
+        try
+        {
+            return Ok(_IWorkSchedulesService.Add(ws));
         }
         catch
         {

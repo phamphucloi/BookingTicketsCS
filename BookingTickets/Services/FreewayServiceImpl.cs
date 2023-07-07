@@ -39,6 +39,25 @@ public class FreewayServiceImpl : IFreewayService
         }
     }
 
+    public dynamic GetAll()
+    {
+        try
+        {
+            return _databaseContext.Freeways.AsNoTracking().Select(acc => new
+            {
+                Id = acc.Id,
+                From = acc.IdFromNavigation.Name,
+                To = acc.IdToNavigation.Name,
+                CreateAt = acc.CreateAt,
+                UpdateAt = acc.UpdateAt
+            }).ToList()!;
+        }
+        catch
+        {
+            return null!;
+        }
+    }
+
     public dynamic GetById(int id)
     {
         try

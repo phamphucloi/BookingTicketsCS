@@ -15,14 +15,13 @@ public partial class WorkSchedule
 
     public int IdAccount { get; set; }
 
-    public int IdCar { get; set; }
+    public string IdCar { get; set; } = null!;
 
-    public DateTime Date { get; set; }
+    public string? Status { get; set; }
 
     public DateTime? CreateAt { get; set; }
 
     public DateTime? UpdateAt { get; set; }
-    public String? Status { get; set; }
 
     public virtual Account IdAccountNavigation { get; set; } = null!;
 

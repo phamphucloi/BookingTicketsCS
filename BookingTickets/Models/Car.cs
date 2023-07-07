@@ -5,9 +5,9 @@ namespace BookingTickets.Models;
 
 public partial class Car
 {
-    public int Id { get; set; }
-
     public string LicensePlates { get; set; } = null!;
+
+    public string? NameCar { get; set; }
 
     public DateTime? RegistrationDate { get; set; }
 

@@ -26,11 +26,11 @@ public class CarServiceImpl : ICarService
         }
     }
 
-    public bool Delete(int id)
+    public bool Delete(string LicensePlates)
     {
         try
         {
-            _databaseContext.Cars.Remove(_databaseContext.Cars.FirstOrDefault(car=>car.Id==id)!);
+            _databaseContext.Cars.Remove(_databaseContext.Cars.FirstOrDefault(car=>car.LicensePlates== LicensePlates)!);
             return _databaseContext.SaveChanges() > 0;
         }
         catch
@@ -39,13 +39,12 @@ public class CarServiceImpl : ICarService
         }
     }
 
-    public dynamic GetById(int id)
+    public dynamic GetByLicensePlates(string LicensePlates)
     {
         try
         {
-            return _databaseContext.Cars.AsNoTracking().Where(c => c.Id==id).Select(car=>new
+            return _databaseContext.Cars.AsNoTracking().Where(c => c.LicensePlates==LicensePlates).Select(car=>new
             {
-                Id = car.Id,
                 LicensePlates = car.LicensePlates,
                 RegistrationDate = car.RegistrationDate,
                 IdCategory = car.IdCategory,
@@ -74,14 +73,21 @@ public class CarServiceImpl : ICarService
 
     public dynamic GetAllCar()
     {
-        return _databaseContext.Cars.Select(car => new
+        try
         {
-            Id = car.Id,
-            LicensePlates = car.LicensePlates,
-            RegistrationDate = car.RegistrationDate,
-            IdCategory = car.IdCategory,
-            CreateAt = car.CreateAt,
-            UpdateAt = car.UpdateAt
-        }).ToList();
+            return _databaseContext.Cars.Where(i=>i.IdCategory != 1).Select(car => new
+            {
+                LicensePlates = car.LicensePlates,
+                RegistrationDate = car.RegistrationDate,
+                IdCategory = car.IdCategory,
+                CreateAt = car.CreateAt,
+                UpdateAt = car.UpdateAt,
+                Name = car.NameCar
+            }).ToList();
+        }
+        catch
+        {
+            return null!;
+        }
     }
 }

@@ -38,6 +38,28 @@ public class AccountServiceImpl : IAccountServive
         }
     }
 
+    public dynamic GetAll()
+    {
+        try
+        {
+            return _databaseContext.Accounts.Where(i=>i.Level == 3).Select(a => new
+            {
+                Id = a.Id,
+                FullName = a.FullName,
+                Address = a.Address,
+                Email = a.Email,
+                Password = a.Password,
+                Phone = a.Phone,
+                Level = a.Level,
+                Status = a.Status
+            }).ToList();
+        }
+        catch
+        {
+            return null!;
+        }
+    }
+
     public dynamic GetById(int id)
     {
         try

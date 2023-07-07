@@ -33,13 +33,13 @@ public class CarController : Controller
         }
     }
 
-    [HttpGet("find/{id}")]
+    [HttpGet("find/{licensePlates}")]
     [Produces("application/json")]
-    public IActionResult Find(int id)
+    public IActionResult Find(string licensePlates)
     {
         try
         {
-            return Ok(_iCarService.GetById(id)
+            return Ok(_iCarService.GetByLicensePlates(licensePlates)
             );
         }
         catch
@@ -62,15 +62,15 @@ public class CarController : Controller
         }
     }
 
-    [HttpGet("delete/{id}")]
+    [HttpGet("delete/{licensePlates}")]
     [Produces("application/json")]
-    public IActionResult Remove(int id)
+    public IActionResult Remove(string licensePlates)
     {
         try
         {
             return Ok(new
             {
-                status = _iCarService.Delete(id)
+                status = _iCarService.Delete(licensePlates)
             });
         }
         catch
@@ -97,4 +97,6 @@ public class CarController : Controller
             return BadRequest("Wrong Path");
         }
     }
+
+
 }

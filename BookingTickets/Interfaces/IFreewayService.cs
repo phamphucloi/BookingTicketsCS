@@ -9,4 +9,5 @@ public interface IFreewayService
     public bool Update(Freeway freeway);
     public bool Delete(int id);
     public dynamic GetById(int id);
+    public dynamic GetAll();
 }

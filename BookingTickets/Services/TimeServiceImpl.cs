@@ -39,6 +39,24 @@ public class TimeServiceImpl : ITimeService
         }
     }
 
+    public dynamic GetAll()
+    {
+        try
+        {
+            return _databaseContext.TimeLines.Select(acc => new
+            {
+                Id = acc.Id,
+                Line = acc.Line,
+                CreateAt = acc.CreateAt,
+                UpdateAt = acc.UpdateAt
+            }).ToList();
+        }
+        catch
+        {
+            return null!;
+        }
+    }
+
     public dynamic GetById(int id)
     {
         try

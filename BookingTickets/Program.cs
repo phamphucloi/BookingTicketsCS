@@ -15,6 +15,12 @@ builder.Services.AddScoped<IChairCarService, ChairCarServiceImpl>();
 
 builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionStrings));
 
+builder.Services.AddScoped<IAccountServive, AccountServiceImpl>();
+
+builder.Services.AddScoped<ITimeService, TimeServiceImpl>();
+
+builder.Services.AddScoped<IFreewayService, FreewayServiceImpl>();
+
 builder.Services.AddScoped<ICarService, CarServiceImpl>();
 
 builder.Services.AddScoped<ICategoryService, CategoryServiceImpl>();

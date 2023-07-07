@@ -15,7 +15,7 @@ public partial class ChairCar
 
     public int IdAccount { get; set; }
 
-    public int IdCar { get; set; }
+    public string IdCar { get; set; } = null!;
 
     public DateTime? CreateAt { get; set; }
 
