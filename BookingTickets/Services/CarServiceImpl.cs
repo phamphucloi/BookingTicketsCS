@@ -75,7 +75,7 @@ public class CarServiceImpl : ICarService
     {
         try
         {
-            return _databaseContext.Cars.Where(i=>i.IdCategory != 1).Select(car => new
+            return _databaseContext.Cars.Select(car => new
             {
                 LicensePlates = car.LicensePlates,
                 RegistrationDate = car.RegistrationDate,

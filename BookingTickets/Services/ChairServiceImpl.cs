@@ -39,6 +39,22 @@ public class ChairServiceImpl : IChairService
         }
     }
 
+    public dynamic GetAll()
+    {
+        try
+        {
+            return _databaseContext.Chairs.Select(c => new
+            {
+                Id = c.Id,
+                Name = c.Name,
+            }).ToList();
+        }
+        catch
+        {
+            return null!;
+        }
+    }
+
     public dynamic GetById(int id)
     {
         try

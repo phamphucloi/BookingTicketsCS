@@ -43,13 +43,69 @@ public class ChairCarController : Controller
         }
     }
 
-    [HttpPost("create")]
+    [HttpGet("getByIdCar/{idCar}")]
     [Produces("application/json")]
-    public IActionResult Create([FromBody] ChairCar chairCar)
+    public IActionResult GetByIdCar(string idCar)
+    {
+        try
+        {
+            return Ok(_IChairCarService.GetByIdCar(idCar));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpGet("GetByIdCarAndIdTimeLineAndDateBook/{idCar}/{idTimeLine}/{dateBook}")]
+    [Produces("application/json")]
+    public IActionResult GetByIdCar(string idCar,int idTimeLine, string dateBook)
+    {
+        try
+        {
+            return Ok(_IChairCarService.GetByIdCarAndIdTimeLineAndDateBook(idCar,idTimeLine, dateBook));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpGet("countTheChairAvailable/{idCar}/{idTimeLine}/{dateBook}")]
+    [Produces("application/json")]
+    public IActionResult CountTheChairAvailable(string idCar, int idTimeLine, string dateBook)
+    {
+        try
+        {
+            return Ok(_IChairCarService.CountTheChairAvailable(idCar, idTimeLine, dateBook));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpPost("creation")]
+    [Produces("application/json")]
+    public IActionResult Creation([FromBody] ChairCar chairCar)
     {
         try
         {
             return Ok(_IChairCarService.Create(chairCar));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpGet("getByIdChairAndIdCarAndDateBook/{idChair}/{idCar}/{dateBook}")]
+    [Produces("application/json")]
+    public IActionResult GetByIdChairAndIdCar(int idChair, string idCar, string dateBook)
+    {
+        try
+        {
+            return Ok(_IChairCarService.GetByIdCharAndIdCarAndDateBook(idChair,idCar,dateBook));
         }
         catch
         {

@@ -7,19 +7,19 @@ public partial class InvoiceCar
 {
     public int Id { get; set; }
 
-    public DateTime Date { get; set; }
+    public DateTime? Date { get; set; }
 
-    public string Note { get; set; } = null!;
+    public string? Note { get; set; }
 
-    public int Total { get; set; }
+    public int? Total { get; set; }
 
-    public int IdAccount { get; set; }
+    public int? IdAccount { get; set; }
 
     public DateTime? CreateAt { get; set; }
 
     public DateTime? UpdateAt { get; set; }
 
-    public virtual Account IdAccountNavigation { get; set; } = null!;
+    public virtual Account? IdAccountNavigation { get; set; }
 
     public virtual ICollection<InvoiceDetailCar> InvoiceDetailCars { get; set; } = new List<InvoiceDetailCar>();
 }

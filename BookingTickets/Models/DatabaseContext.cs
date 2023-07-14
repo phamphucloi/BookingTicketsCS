@@ -55,7 +55,7 @@ public partial class DatabaseContext : DbContext
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Account__3214EC07496D8C2D");
+            entity.HasKey(e => e.Id).HasName("PK__Account__3214EC07D8F7BE69");
 
             entity.ToTable("Account");
 
@@ -65,7 +65,7 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.CreateAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("date");
-            entity.Property(e => e.DoB).HasColumnType("datetime");
+            entity.Property(e => e.DoB).HasColumnType("date");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -78,6 +78,9 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Phone)
                 .HasMaxLength(20)
                 .IsUnicode(false);
+            entity.Property(e => e.SecurityCode)
+                .HasMaxLength(10)
+                .IsUnicode(false);
             entity.Property(e => e.UpdateAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("date");
@@ -85,7 +88,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Car>(entity =>
         {
-            entity.HasKey(e => e.LicensePlates).HasName("PK__Car__AE763D17366D5AD6");
+            entity.HasKey(e => e.LicensePlates).HasName("PK__Car__AE763D1746DD994A");
 
             entity.ToTable("Car");
 
@@ -107,13 +110,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.IdCategoryNavigation).WithMany(p => p.Cars)
                 .HasForeignKey(d => d.IdCategory)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Car_Category_Car");
         });
 
         modelBuilder.Entity<CategoryCar>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC0733F76A38");
+            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC079D9254EB");
 
             entity.ToTable("CategoryCar");
 
@@ -130,7 +132,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Chair>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Chair__3214EC0719866906");
+            entity.HasKey(e => e.Id).HasName("PK__Chair__3214EC07AEFF28A6");
 
             entity.ToTable("Chair");
 
@@ -147,7 +149,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<ChairCar>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ChairCar__3214EC078468A66E");
+            entity.HasKey(e => e.Id).HasName("PK__ChairCar__3214EC077C87A101");
 
             entity.ToTable("ChairCar");
 
@@ -163,18 +165,20 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.IdCarNavigation).WithMany(p => p.ChairCars)
                 .HasForeignKey(d => d.IdCar)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ChairCar_Car");
 
             entity.HasOne(d => d.IdChairNavigation).WithMany(p => p.ChairCars)
                 .HasForeignKey(d => d.IdChair)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ChairCar_Chair");
+
+            entity.HasOne(d => d.IdTimeLineNavigation).WithMany(p => p.ChairCars)
+                .HasForeignKey(d => d.IdTimeLine)
+                .HasConstraintName("FK_ChairCar_TimeLine");
         });
 
         modelBuilder.Entity<Discount>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Discount__3214EC073BE37B43");
+            entity.HasKey(e => e.Id).HasName("PK__Discount__3214EC07FD9B6417");
 
             entity.ToTable("Discount");
 
@@ -192,7 +196,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<DiscountDetail>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Discount__3214EC073FF0C3D3");
+            entity.HasKey(e => e.Id).HasName("PK__Discount__3214EC073EA5546A");
 
             entity.ToTable("DiscountDetail");
 
@@ -205,18 +209,16 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.IdAccountNavigation).WithMany(p => p.DiscountDetails)
                 .HasForeignKey(d => d.IdAccount)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_DiscountDetail_Account");
 
             entity.HasOne(d => d.IdDiscountNavigation).WithMany(p => p.DiscountDetails)
                 .HasForeignKey(d => d.IdDiscount)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_DiscountDetail_Discount");
         });
 
         modelBuilder.Entity<Freeway>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Freeway__3214EC07607D30AA");
+            entity.HasKey(e => e.Id).HasName("PK__Freeway__3214EC07245DF834");
 
             entity.ToTable("Freeway");
 
@@ -232,18 +234,16 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.IdFromNavigation).WithMany(p => p.Freeways)
                 .HasForeignKey(d => d.IdFrom)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Freeway_PlaceFrom");
 
             entity.HasOne(d => d.IdToNavigation).WithMany(p => p.Freeways)
                 .HasForeignKey(d => d.IdTo)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Freeway_PlaceTo");
         });
 
         modelBuilder.Entity<InvoiceCar>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__InvoiceC__3214EC0735D3BD83");
+            entity.HasKey(e => e.Id).HasName("PK__InvoiceC__3214EC0719CEBAFB");
 
             entity.ToTable("InvoiceCar");
 
@@ -260,13 +260,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.IdAccountNavigation).WithMany(p => p.InvoiceCars)
                 .HasForeignKey(d => d.IdAccount)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_InvoiceCar_Account");
         });
 
         modelBuilder.Entity<InvoiceDetailCar>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__InvoiceD__3214EC07B7D82DDB");
+            entity.HasKey(e => e.Id).HasName("PK__InvoiceD__3214EC0726FD7FE8");
 
             entity.ToTable("InvoiceDetailCar");
 
@@ -279,18 +278,16 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.IdChairCarNavigation).WithMany(p => p.InvoiceDetailCars)
                 .HasForeignKey(d => d.IdChairCar)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_InvoiceDetailCar_ChairCar");
 
             entity.HasOne(d => d.IdIvoiceCarNavigation).WithMany(p => p.InvoiceDetailCars)
                 .HasForeignKey(d => d.IdIvoiceCar)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_InvoiceDetailCar_InvoiceCar");
         });
 
         modelBuilder.Entity<InvoiceShipping>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__InvoiceS__3214EC07A56EFEE1");
+            entity.HasKey(e => e.Id).HasName("PK__InvoiceS__3214EC07136A6416");
 
             entity.ToTable("InvoiceShipping");
 
@@ -321,18 +318,16 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.IdAccountNavigation).WithMany(p => p.InvoiceShippings)
                 .HasForeignKey(d => d.IdAccount)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_InvoiceShipping_Account");
 
             entity.HasOne(d => d.IdShippingNavigation).WithMany(p => p.InvoiceShippings)
                 .HasForeignKey(d => d.IdShipping)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_InvoiceShipping_Shipping");
         });
 
         modelBuilder.Entity<PlaceFrom>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__PlaceFro__3214EC073B290F06");
+            entity.HasKey(e => e.Id).HasName("PK__PlaceFro__3214EC0706D0FCC7");
 
             entity.ToTable("PlaceFrom");
 
@@ -343,7 +338,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<PlaceTo>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__PlaceTo__3214EC0732F9A254");
+            entity.HasKey(e => e.Id).HasName("PK__PlaceTo__3214EC076EBB5DDD");
 
             entity.ToTable("PlaceTo");
 
@@ -354,7 +349,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Shipping>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Shipping__3214EC07D9E6DDD7");
+            entity.HasKey(e => e.Id).HasName("PK__Shipping__3214EC07D260A5FA");
 
             entity.ToTable("Shipping");
 
@@ -373,7 +368,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<TimeLine>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__TimeLine__3214EC070B40735E");
+            entity.HasKey(e => e.Id).HasName("PK__TimeLine__3214EC07B899CDB4");
 
             entity.ToTable("TimeLine");
 
@@ -390,7 +385,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<WorkSchedule>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__WorkSche__3214EC070B0838FC");
+            entity.HasKey(e => e.Id).HasName("PK__WorkSche__3214EC07F76D7715");
 
             entity.ToTable("WorkSchedule");
 
@@ -410,22 +405,18 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.IdAccountNavigation).WithMany(p => p.WorkSchedules)
                 .HasForeignKey(d => d.IdAccount)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_WorkSchedule_Account");
 
             entity.HasOne(d => d.IdCarNavigation).WithMany(p => p.WorkSchedules)
                 .HasForeignKey(d => d.IdCar)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_WorkSchedule_Car");
 
             entity.HasOne(d => d.IdFreewayNavigation).WithMany(p => p.WorkSchedules)
                 .HasForeignKey(d => d.IdFreeway)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_WorkSchedule_Freeway");
 
             entity.HasOne(d => d.IdTimeLineNavigation).WithMany(p => p.WorkSchedules)
                 .HasForeignKey(d => d.IdTimeLine)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_WorkSchedule_TimeLine");
         });
 

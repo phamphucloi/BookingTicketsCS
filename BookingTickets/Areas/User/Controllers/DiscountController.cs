@@ -78,6 +78,20 @@ public class DiscountController : Controller
         }
     }
 
+    [HttpGet("getByCode/{code}")]
+    [Produces("application/json")]
+    public IActionResult GetByCode(string code)
+    {
+        try
+        {
+            return Ok(_iDiscountService.GetByCode(code));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
     [Produces("application/json")]
     [Consumes("application/json")]
     [HttpPut("update")]

@@ -85,4 +85,16 @@ public class DiscountServiceImpl : IDiscountService
             UpdateAt = acc.UpdateAt
         }).ToList();
     }
+    public int GetByCode(string code)
+    {
+
+        try
+        {
+            return _databaseContext.Discounts.FirstOrDefault(d => d.Content == code)!.Price;
+        }
+        catch
+        {
+            return 0;
+        }
+    }
 }

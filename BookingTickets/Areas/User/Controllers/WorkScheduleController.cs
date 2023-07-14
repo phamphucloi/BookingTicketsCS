@@ -35,6 +35,20 @@ public class WorkScheduleController : Controller
         }
     }
 
+    [HttpGet("search/{date}/{time}/{freeway}")]
+    [Produces("application/json")]
+    public IActionResult Search(string date, int time, int freeway)
+    {
+        try
+        {
+            return Ok(_IWorkSchedulesService.Search(freeway,time,date));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
     [HttpGet("getByIdAccount/{idAccount}")]
     [Produces("application/json")]
     public IActionResult GetByIdAccount(int idAccount)

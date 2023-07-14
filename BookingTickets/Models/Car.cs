@@ -11,7 +11,7 @@ public partial class Car
 
     public DateTime? RegistrationDate { get; set; }
 
-    public int IdCategory { get; set; }
+    public int? IdCategory { get; set; }
 
     public DateTime? CreateAt { get; set; }
 
@@ -19,7 +19,7 @@ public partial class Car
 
     public virtual ICollection<ChairCar> ChairCars { get; set; } = new List<ChairCar>();
 
-    public virtual CategoryCar IdCategoryNavigation { get; set; } = null!;
+    public virtual CategoryCar? IdCategoryNavigation { get; set; }
 
     public virtual ICollection<WorkSchedule> WorkSchedules { get; set; } = new List<WorkSchedule>();
 }

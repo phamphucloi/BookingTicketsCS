@@ -7,13 +7,13 @@ public partial class Discount
 {
     public int Id { get; set; }
 
-    public string Content { get; set; } = null!;
+    public string? Content { get; set; }
 
     public int Price { get; set; }
 
-    public bool Status { get; set; }
+    public bool? Status { get; set; }
 
-    public DateTime DateEnd { get; set; }
+    public DateTime? DateEnd { get; set; }
 
     public DateTime? CreateAt { get; set; }
 

@@ -155,6 +155,25 @@ public class WorkSchedulesServiceImpl : IWorkSchedulesService
         }
     }
 
+    public dynamic Search(int freeway,int time ,string date)
+    {
+        try
+        {
+            var a = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+            return _databaseContext.WorkSchedules.Where(w=>w.WorkDay == a && w.IdTimeLine == time && w.IdFreeway == freeway).Select(w => new
+            {
+                WorkDay = w.WorkDay,
+                TimeLine = w.IdTimeLineNavigation.Line,
+                From = w.IdFreewayNavigation.IdFromNavigation.Name,
+                To = w.IdFreewayNavigation.IdToNavigation.Name,
+                IdAccount = w.IdAccount,
+                IdCar = w.IdCar
+            }).ToList()!;
+
+        }catch { return null!; }
+    }
+
     public bool Update(WorkSchedule ws)
     {
         try

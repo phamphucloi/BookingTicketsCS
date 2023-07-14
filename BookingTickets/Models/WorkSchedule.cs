@@ -7,15 +7,15 @@ public partial class WorkSchedule
 {
     public int Id { get; set; }
 
-    public DateTime WorkDay { get; set; }
+    public DateTime? WorkDay { get; set; }
 
-    public int IdTimeLine { get; set; }
+    public int? IdTimeLine { get; set; }
 
-    public int IdFreeway { get; set; }
+    public int? IdFreeway { get; set; }
 
-    public int IdAccount { get; set; }
+    public int? IdAccount { get; set; }
 
-    public string IdCar { get; set; } = null!;
+    public string? IdCar { get; set; }
 
     public string? Status { get; set; }
 
@@ -23,11 +23,11 @@ public partial class WorkSchedule
 
     public DateTime? UpdateAt { get; set; }
 
-    public virtual Account IdAccountNavigation { get; set; } = null!;
+    public virtual Account? IdAccountNavigation { get; set; }
 
-    public virtual Car IdCarNavigation { get; set; } = null!;
+    public virtual Car? IdCarNavigation { get; set; }
 
-    public virtual Freeway IdFreewayNavigation { get; set; } = null!;
+    public virtual Freeway? IdFreewayNavigation { get; set; }
 
-    public virtual TimeLine IdTimeLineNavigation { get; set; } = null!;
+    public virtual TimeLine? IdTimeLineNavigation { get; set; }
 }

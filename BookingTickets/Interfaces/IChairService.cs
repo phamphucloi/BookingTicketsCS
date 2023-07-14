@@ -8,4 +8,5 @@ public interface IChairService
     public dynamic GetById(int id);
     public bool Update(Chair chair);
     public bool Delete(int id);
+    public dynamic GetAll();
 }

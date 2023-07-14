@@ -12,5 +12,5 @@ public interface IWorkSchedulesService
     public dynamic GetByIdAccount2(int idAccount, string status);
     public dynamic GetIdCar(int idAccount);
     public dynamic GetByStatusCompleted(int idAccount, string status);
-
+    public dynamic Search(int freeway, int time, string date);
 }

@@ -7,7 +7,7 @@ public partial class Shipping
 {
     public int Id { get; set; }
 
-    public string Pakage { get; set; } = null!;
+    public string? Pakage { get; set; }
 
     public int? Weight { get; set; }
 
